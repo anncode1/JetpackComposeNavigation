@@ -7,12 +7,15 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.anncode.navigationtest.ui.composables.RoundedButton
+import com.anncode.navigationtest.ui.domain.User
+import com.anncode.navigationtest.ui.navigation.AppScreens
 import com.anncode.navigationtest.ui.theme.Purple700
+import com.google.gson.Gson
 
 @Composable
-fun SignInScreen() {
+fun SignInScreen(navController: NavController) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Purple700
@@ -22,13 +25,16 @@ fun SignInScreen() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            RoundedButton(onClick = { /*TODO*/ }, text = "Create")
+            val user = User("Robert", "Code")
+            val userJson = Gson().toJson(user)
+            RoundedButton(onClick = {
+                navController.navigate(AppScreens.ProfileScreen.name + "/$userJson") {
+                    popUpTo(AppScreens.LoginScreen.name) {
+                        inclusive = true
+                    }
+                }
+            }, text = "Create")
         }
     }
 }
 
-@Preview
-@Composable
-fun SignInScreenPreview() {
-    SignInScreen()
-}

@@ -9,15 +9,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
+import androidx.navigation.NavController
+import com.anncode.navigationtest.ui.domain.User
 import com.anncode.navigationtest.ui.theme.CyanBlue
 
 @OptIn(ExperimentalUnitApi::class)
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(
+    navController: NavController,
+    user: User
+) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = CyanBlue
@@ -28,7 +32,7 @@ fun ProfileScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = "My Profile",
+                text = "My Profile ${user.name}",
                 color = Color.White,
                 fontSize = TextUnit(50F, TextUnitType.Sp)
             )
@@ -36,8 +40,3 @@ fun ProfileScreen() {
     }
 }
 
-@Preview
-@Composable
-fun ProfileScreenPreview() {
-    ProfileScreen()
-}
